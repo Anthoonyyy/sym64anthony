@@ -15,7 +15,7 @@
                         <ul class="js-clone-nav d-none d-lg-inline-block text-start site-menu mx-auto">
                             <li class="active"><a href="{{ path('homepage') }}">Home</a></li>
                             {% for section in sections %}
-                                <li><a  href="{{ path('section', {id: section.id}) }}">{{ section.sectionTitle }}</a></li>
+                                <li><a  href="{{ path('section', {slug: section.sectionSlug}) }}">{{ section.sectionTitle }}</a></li>
                             {% endfor %}
                         </ul>
                     </div>

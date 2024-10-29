@@ -58,7 +58,7 @@ class Article
 
     public function __construct()
     {
-        $this->Section = new ArrayCollection();
+        $this->sections = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -153,23 +153,23 @@ class Article
     /**
      * @return Collection<int, Section>
      */
-    public function getSection(): Collection
+    public function getSections(): Collection
     {
-        return $this->Section;
+        return $this->sections;
     }
 
-    public function addSection(Section $section): static
+    public function addSections(section $section): static
     {
-        if (!$this->Section->contains($section)) {
-            $this->Section->add($section);
+        if (!$this->sections->contains($section)) {
+            $this->sections->add($section);
         }
 
         return $this;
     }
 
-    public function removeSection(Section $section): static
+    public function removeSections(sections $section): static
     {
-        $this->Section->removeElement($section);
+        $this->sections->removeElement($section);
 
         return $this;
     }

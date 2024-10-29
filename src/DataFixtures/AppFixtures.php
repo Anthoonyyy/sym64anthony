@@ -153,11 +153,10 @@ class AppFixtures extends Fixture
             $section->setSectionSlug($slugify->slugify($title));
 
             $section->setSectionDetail($faker->realTextBetween(100,400));
-            $articlesRandom =  array_rand($articles, mt_rand(2, min(40, count($articles))));
+            $articlesRandom =  array_rand($articles, mt_rand(2, 40));
 
-            foreach ($articlesRandom as $article){
-
-                $section->addArticle($articles[$article]);
+            foreach ($articlesRandom as $value){
+                $section->addArticle($articles[$value]);
             }
 
 

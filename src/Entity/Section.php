@@ -88,7 +88,7 @@ class Section
     {
         if (!$this->articles->contains($article)) {
             $this->articles->add($article);
-            $article->addSection($this);
+            $article->addSections($this);
         }
 
         return $this;

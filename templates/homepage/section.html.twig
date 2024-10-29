@@ -6,7 +6,9 @@
 {% block content %}
     <div class="container mt-5">
         <div class="row">
+
             {% if section.articles is not empty %}
+                {% for sections in section %}
                 {% for article in section.articles %}
                     <div class="col-md-12">
                         <h3>{{ article.articleTitle }}</h3>
@@ -24,6 +26,7 @@
                     <div class="col-md-12">
                         <h3>Pas encore d'articles</h3>
                     </div>
+                {% endfor %}
                 {% endfor %}
             {% else %}
                 <div class="col-md-12">
