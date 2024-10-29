@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{parent()}}Administration{% endblock %}
+
+{% block body %}
+    {% block nav %}
+        {% include 'admin/_menu.admin.html.twig' %}
+    {% endblock %}
+<div class="example-wrapper">
+    <h1>{{ title }} ✅</h1>
+
+    This friendly message is coming from:
+    <ul>
+        <li>Your controller at <code>D:/PrefoWeb/TI4/sym64anthony/src/Controller/AdminController.php</code></li>
+        <li>Your template at <code>D:/PrefoWeb/TI4/sym64anthony/templates/admin/index.html.twig</code></li>
+    </ul>
+</div>
+{% endblock %}

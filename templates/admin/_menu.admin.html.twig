@@ -14,17 +14,9 @@
                         </form>
                         <ul class="js-clone-nav d-none d-lg-inline-block text-start site-menu mx-auto">
                             <li class="active"><a href="{{ path('homepage') }}">Accueil</a></li>
-                            {% for section in sections %}
-                                <li><a  href="{{ path('section', {slug: section.sectionSlug}) }}">{{ section.sectionTitle }}</a></li>
-                            {% endfor %}
-                            {% if is_granted('IS_AUTHENTICATED') %}
-                           <li><a href="{{ path('app_logout') }}">Déconnexion</a></li>
-                            {% if is_granted('ROLE_ADMIN') %}
-                                <li> <a href="{{ path('app_admin') }}">Administration</a> </li>
-                                {% endif %}
-                            {% else %}
-                                <li><a href="{{ path('app_login') }}">Connexion</a></li>
-                            {% endif %}
+                            <li><a href="{{ path('app_admin_article_index') }}">Gérer les articles </a> </li>
+                            <li><a href="{{ path('app_logout') }}">Déconnexion</a> </li>
+                            <li><a href="{{ path('app_admin') }}">Administration</a> </li>
                         </ul>
                     </div>
                     <div class="col-2 text-end">

@@ -6,7 +6,8 @@
 {% block content %}
     <div class="container mt-5">
         <div class="row">
-
+            <h3 class="text-center">Catégorie : {{ section.sectionTitle }}</h3>
+            <p>{{ section.sectionDetail }}</p>
             {% if section.articles is not empty %}
                 {% for sections in section %}
                 {% for article in section.articles %}
