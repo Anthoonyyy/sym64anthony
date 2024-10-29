@@ -8,10 +8,10 @@ use Symfony\Component\Routing\Attribute\Route;
 
 class HomepageController extends AbstractController
 {
-    #[Route('/homepage', name: 'app_homepage')]
+    #[Route('/', name: 'homepage')]
     public function index(): Response
     {
-        return $this->render('homepage/index.html.twig', [
+        return $this->render('template.front.html.twig', [
             'controller_name' => 'HomepageController',
         ]);
     }
