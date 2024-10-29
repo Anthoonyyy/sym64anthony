@@ -1,0 +1,35 @@
+{% extends 'template.front.html.twig' %}
+
+ {% block nav %}
+     {% include 'homepage/_menu.html.twig' %}
+ {% endblock %}
+{% block content %}
+    <div class="container mt-5">
+        <div class="row">
+            {% if section.articles is not empty %}
+                {% for article in section.articles %}
+                    <div class="col-md-12">
+                        <h3>{{ article.articleTitle }}</h3>
+                        <p>
+                            Écrit par <strong>{{ article.user.username }}</strong> le {{ article.articleDateCreated|date("d/m/Y à H:i") }}
+                        </p>
+                        <p>{{ article.articleText }}</p>
+
+                        {# Affichage des sections liées à cet article #}
+                        {% for section in article.sections %}
+                            <a href="#">{{ section.sectionTitle }}</a>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <div class="col-md-12">
+                        <h3>Pas encore d'articles</h3>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <div class="col-md-12">
+                    <h3>Pas encore d'articles</h3>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

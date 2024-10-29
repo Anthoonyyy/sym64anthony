@@ -154,7 +154,9 @@ class AppFixtures extends Fixture
 
             $section->setSectionDetail($faker->realTextBetween(100,400));
             $articlesRandom =  array_rand($articles, mt_rand(2, min(40, count($articles))));
+
             foreach ($articlesRandom as $article){
+
                 $section->addArticle($articles[$article]);
             }
 
