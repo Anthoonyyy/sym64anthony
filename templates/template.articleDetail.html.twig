@@ -1,0 +1,81 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} {{ article.title }}{% endblock %}
+
+{% block body %}
+    <body>
+    <div class="site-mobile-menu site-navbar-target">
+        <div class="site-mobile-menu-header">
+            <div class="site-mobile-menu-close">
+                <span class="icofont-close js-menu-toggle"></span>
+            </div>
+        </div>
+        <div class="site-mobile-menu-body"></div>
+    </div>
+
+    {% block nav %}
+        {% include 'homepage/_menu.html.twig' %}
+    {% endblock %}
+
+    <!-- Post Header -->
+    <div class="site-cover site-cover-sm same-height overlay single-page" style="background-image: url('{{ asset('images/hero_5.jpg') }}')">
+        <div class="container">
+            <div class="row same-height justify-content-center">
+                <div class="col-md-6">
+                    <div class="post-entry text-center">
+                        <h1 class="mb-4">{{ article.title }}</h1>
+                        <div class="post-meta align-items-center text-center">
+                            <figure class="author-figure mb-0 me-3 d-inline-block">
+                                <img src="{{ asset('images/person_1.jpg') }}" alt="Image" class="img-fluid">
+                            </figure>
+                            <span class="d-inline-block mt-1">By {{ article.user.username }}</span> - {{ article.articleDatePosted|date("F d, Y") }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Article Content -->
+    <section class="section">
+        <div class="container">
+            <div class="row blog-entries element-animate">
+                <div class="col-md-12 col-lg-8 main-content">
+                    <div class="post-content-body">
+                        {{ article.text }}
+                    </div>
+                </div>
+
+                <!-- Sidebar -->
+                <div class="col-md-12 col-lg-4 sidebar">
+                    <!-- Author Bio -->
+                    <div class="sidebar-box">
+                        <div class="bio text-center">
+                            <img src="{{ asset('images/person_2.jpg') }}" alt="Image Placeholder" class="img-fluid mb-3">
+                            <div class="bio-body">
+                                <h2>{{ article.user.username }}</h2>
+
+                                <p><a href="#" class="btn btn-primary btn-sm rounded px-2 py-2">Read my bio</a></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    {% block footer %}
+        {% include 'homepage/footer.html.twig' %}
+    {% endblock %}
+    </body>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ asset('js/tiny-slider.js') }}"></script>
+    <script src="{{ asset('js/aos.js') }}"></script>
+    <script src="{{ asset('js/navbar.js') }}"></script>
+    <script src="{{ asset('js/counter.js') }}"></script>
+    <script src="{{ asset('js/custom.js') }}"></script>
+{% endblock %}
