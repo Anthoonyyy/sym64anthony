@@ -36,14 +36,14 @@ final class AdminArticleController extends AbstractController
     {
         $article = new Article();
         $article->setUser($this->getUser());
-        // Définir la date de création
+        // Définis la date de création
         $article->setArticleDateCreate(new \DateTime());
 
         $form = $this->createForm(ArticleType::class, $article);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            // Générer le slug avec Slugify
+            // Génére le slug avec Slugify
             $slug = $this->slugify->slugify($article->getTitle());
             $article->setTitleSlug($slug);
 
@@ -67,7 +67,7 @@ final class AdminArticleController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            // Mettre à jour le slug si le titre a changé
+            // Mets à jour le slug si le titre a changé
             $slug = $this->slugify->slugify($article->getTitle());
             $article->setTitleSlug($slug);
 
