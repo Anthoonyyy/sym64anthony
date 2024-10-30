@@ -8,5 +8,24 @@
     {% endblock %}
 
     <h1 class="text-center mt-5">{{ title }} </h1>
+    <p class="text-center">Accueil de l'administration</p>
+
+    <div class="container px-4 py-5" id="hanging-icons">
+
+        <div class="row g-4 py-5 row-cols-1 row-cols-lg-3">
+            <div class="col d-flex align-items-start">
+
+                <div>
+                    <h3 class="fs-2 ">Administration des articles</h3>
+                    <p>Gestion des articles uniquement par un administrateur.</p>
+                    <a href="{{ path('app_admin_article_index') }}" class="btn btn-primary">
+                        Gérer les articles
+                    </a>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
 
 {% endblock %}

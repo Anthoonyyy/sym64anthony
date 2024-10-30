@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Repository\SectionRepository;
+use App\Repository\ArticleRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -10,12 +11,13 @@ use Symfony\Component\Routing\Attribute\Route;
 class HomepageController extends AbstractController
 {
     #[Route('/', name: 'homepage')]
-    public function index(SectionRepository $sections): Response
+    public function index(SectionRepository $sections, ArticleRepository $articles): Response
     {
 
         return $this->render('template.front.html.twig', [
             'controller_name' => 'HomepageController',
-            'sections' => $sections->findAll()
+            'sections' => $sections->findAll(),
+            'articles' => $articles->findBy([], null, 10),
         ]);
     }
     #[Route(
