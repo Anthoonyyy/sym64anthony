@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Article;
 use App\Form\ArticleType;
 use App\Repository\ArticleRepository;
+use Cocur\Slugify\Slugify;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -14,6 +15,13 @@ use Symfony\Component\Routing\Attribute\Route;
 #[Route('/admin/article')]
 final class AdminArticleController extends AbstractController
 {
+    private Slugify $slugify;
+
+    public function __construct()
+    {
+        $this->slugify = new Slugify();
+    }
+
     #[Route(name: 'app_admin_article_index', methods: ['GET'])]
     public function index(ArticleRepository $articleRepository): Response
     {
@@ -27,10 +35,18 @@ final class AdminArticleController extends AbstractController
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $article = new Article();
+        $article->setUser($this->getUser());
+        // Définir la date de création
+        $article->setArticleDateCreate(new \DateTime());
+
         $form = $this->createForm(ArticleType::class, $article);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            // Générer le slug avec Slugify
+            $slug = $this->slugify->slugify($article->getTitle());
+            $article->setTitleSlug($slug);
+
             $entityManager->persist($article);
             $entityManager->flush();
 
@@ -44,14 +60,6 @@ final class AdminArticleController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_admin_article_show', methods: ['GET'])]
-    public function show(Article $article): Response
-    {
-        return $this->render('admin_article/show.html.twig', [
-            'article' => $article,
-        ]);
-    }
-
     #[Route('/{id}/edit', name: 'app_admin_article_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Article $article, EntityManagerInterface $entityManager): Response
     {
@@ -59,6 +67,10 @@ final class AdminArticleController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            // Mettre à jour le slug si le titre a changé
+            $slug = $this->slugify->slugify($article->getTitle());
+            $article->setTitleSlug($slug);
+
             $entityManager->flush();
 
             return $this->redirectToRoute('app_admin_article_index', [], Response::HTTP_SEE_OTHER);
@@ -67,6 +79,14 @@ final class AdminArticleController extends AbstractController
         return $this->render('admin_article/edit.html.twig', [
             'article' => $article,
             'form' => $form,
+        ]);
+    }
+
+    #[Route('/{id}', name: 'app_admin_article_show', methods: ['GET'])]
+    public function show(Article $article): Response
+    {
+        return $this->render('admin_article/show.html.twig', [
+            'article' => $article,
         ]);
     }
 

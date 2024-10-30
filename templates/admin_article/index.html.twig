@@ -9,7 +9,7 @@
 
     <h1 class=" mt-5 mb-5 text-center  border-bottom pb-3">{{ title }}</h1>
 
-    <h2 class="text-center mb-3">Liste des articles</h2>
+
     <div class="text-center mb-5">
     <a href="{{ path('app_admin_article_new') }}" class="btn btn-outline-primary ">
         Ajouter un  article
@@ -31,12 +31,12 @@
         </thead>
         <tbody>
         {% for article in articles %}
-            <tr>
+            <tr class="text-center">
                 <td>{{ article.id }}</td>
                 <td>{{ article.userId }}</td>
                 <td>{{ article.title }}</td>
                 <td>{{ article.titleSlug }}</td>
-                <td>{{ article.text }}</td>
+                <td>{{ article.text | slice(0, 300) }}{% if article.text|length > 300 %}...{% endif %}</td>
                 <td>{{ article.articleDateCreate ? article.articleDateCreate|date('Y-m-d H:i:s') : '' }}</td>
                 <td>{{ article.articleDatePosted ? article.articleDatePosted|date('Y-m-d H:i:s') : '' }}</td>
                 <td>{{ article.published ? 'Yes' : 'No' }}</td>

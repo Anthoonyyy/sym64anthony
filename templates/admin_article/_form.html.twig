@@ -1,4 +1,49 @@
-{{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
-{{ form_end(form) }}
+<div class="container py-4">
+    <div class="row">
+        <div class="col-12">
+            {{ form_start(form, {'attr': {'class': 'needs-validation'}}) }}
+
+            {# Titre #}
+            <div class="mb-3">
+                {{ form_label(form.title, null, {'label_attr': {'class': 'form-label'}}) }}
+                {{ form_widget(form.title, {'attr': {'class': 'form-control'}}) }}
+            </div>
+
+            {# Text #}
+            <div class="mb-3">
+                {{ form_label(form.text, null, {'label_attr': {'class': 'form-label'}}) }}
+                {{ form_widget(form.text, {'attr': {'class': 'form-control', 'rows': '6'}}) }}
+            </div>
+
+            {# Date posted #}
+            <div class="mb-3">
+                {{ form_label(form.article_date_posted, null, {'label_attr': {'class': 'form-label'}}) }}
+                {{ form_widget(form.article_date_posted, {'attr': {'class': 'form-control'}}) }}
+            </div>
+
+            {# Published #}
+            <div class="mb-3 form-check">
+                {{ form_widget(form.published, {'attr': {'class': 'form-check-input'}}) }}
+                {{ form_label(form.published, null, {'label_attr': {'class': 'form-check-label'}}) }}
+            </div>
+
+            {# Sections #}
+            <div class="mb-4">
+                {{ form_label(form.sections, null, {'label_attr': {'class': 'form-label d-block mb-2'}}) }}
+                {% for section in form.sections %}
+                    <div class="form-check">
+                        {{ form_widget(section, {'attr': {'class': 'form-check-input'}}) }}
+                        {{ form_label(section, null, {'label_attr': {'class': 'form-check-label'}}) }}
+                    </div>
+                {% endfor %}
+            </div>
+
+            {# Bouton à l'extérieur des sections #}
+            <div class="mt-3">
+                <button type="submit" class="btn btn-primary">{{ button_label|default('Save') }}</button>
+            </div>
+
+            {{ form_end(form) }}
+        </div>
+    </div>
+</div>
