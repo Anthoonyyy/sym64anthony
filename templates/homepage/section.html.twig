@@ -1,39 +1,47 @@
 {% extends 'template.front.html.twig' %}
 
- {% block nav %}
-     {% include 'homepage/_menu.html.twig' %}
- {% endblock %}
-{% block content %}
-    <div class="container mt-5">
-        <div class="row">
-            <h3 class="text-center">Catégorie : {{ section.sectionTitle }}</h3>
-            <p>{{ section.sectionDetail }}</p>
-            {% if section.articles is not empty %}
-                {% for sections in section %}
-                {% for article in section.articles %}
-                    <div class="col-md-12">
-                        <h3>{{ article.articleTitle }}</h3>
-                        <p>
-                            Écrit par <strong>{{ article.user.username }}</strong> le {{ article.articleDateCreated|date("d/m/Y à H:i") }}
-                        </p>
-                        <p>{{ article.articleText }}</p>
+{% block title %}{{section.sectionTitle  }}{% endblock %}
+{% block nav %}
+    {% include 'homepage/_menu.html.twig' %}
+{% endblock %}
 
-                        {# Affichage des sections liées à cet article #}
-                        {% for section in article.sections %}
-                            <a href="#">{{ section.sectionTitle }}</a>
-                        {% endfor %}
-                    </div>
+{% block content %}
+    <section class="section">
+        <div class="container">
+            <div class="row">
+                {% if section.articles is not empty %}
+                    {% for article in section.articles %}
+                        <div class="col-lg-4 mb-4">
+                            <div class="post-entry-alt">
+                                <a href="{{ path('app_article_detail', {'id': article.id}) }}" class="img-link">
+                                    <img src="{{ asset('images/textures.jpg') }}" alt="Image" class="img-fluid">
+                                </a>
+                                <div class="excerpt">
+                                    <h2>
+                                        <a href="{{ path('app_article_detail', {'id': article.id}) }}">{{ article.title }}</a>
+                                    </h2>
+                                    <div class="post-meta align-items-center text-left clearfix">
+                                        <figure class="author-figure mb-0 me-3 float-start">
+                                            <img src="{{ asset('images/person_1.jpg') }}" alt="Image" class="img-fluid">
+                                        </figure>
+                                        <span class="d-inline-block mt-1">By <a href="#">{{ article.user.username }}</a></span>
+                                        <span>&nbsp;-&nbsp; {{ article.articleDatePosted|date("F d, Y") }}</span>
+                                    </div>
+                                    {# Coupe le texte #}
+                                    <p>{{ article.text|slice(0, 100) ~ '...' }}</p>
+                                    <p>
+                                        <a href="{{ path('app_article_detail', {'id': article.id}) }}" class="read-more">Lire la suite..</a>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
                 {% else %}
                     <div class="col-md-12">
                         <h3>Pas encore d'articles</h3>
                     </div>
-                {% endfor %}
-                {% endfor %}
-            {% else %}
-                <div class="col-md-12">
-                    <h3>Pas encore d'articles</h3>
-                </div>
-            {% endif %}
+                {% endif %}
+            </div>
         </div>
-    </div>
+    </section>
 {% endblock %}
