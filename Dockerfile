@@ -1,44 +1,42 @@
-# Image de base PHP-FPM Alpine optimisée
 FROM php:8.1-fpm-alpine
-
-# Installations des dépendances système
+ 
+# Installation des dépendances système
 RUN apk add --no-cache \
-    git \
-    unzip \
-    libpng-dev \
     libzip-dev \
-    postgresql-dev \
-    && docker-php-ext-install \
-    pdo_mysql \
+    icu-dev \
+    git \
+    zip \
+    unzip
+ 
+# Installation des extensions PHP
+RUN docker-php-ext-install \
     pdo_pgsql \
-    gd \
     zip \
     intl
-
-
-COPY --from=composer:2.5 /usr/bin/composer /usr/bin/composer
-
-# Configuration du répertoire de travail
-WORKDIR /var/www/symfony
-
-# Optimisation des dépendances Composer
-COPY composer.json composer.lock ./
-RUN composer install --no-dev --no-scripts --no-autoloader
-
-# Copie du reste des sources
+ 
+WORKDIR /usr/src/app
+ 
+# Installation de Composer
+COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
+ 
+# Copie des fichiers de configuration
+COPY composer.* ./
+ 
+# Ajout des répertoires bin au PATH
+ENV PATH="${PATH}:/usr/src/app/vendor/bin:bin"
+ 
+# Copie du reste des fichiers
 COPY . .
-
-# Génération de l'autoloader Composer
-RUN composer dump-autoload --no-dev --optimize
-
-# Configuration PHP-FPM
-COPY php-fpm.conf /usr/local/etc/php-fpm.d/custom.conf
-
-# Permissions
-RUN chown -R www-data:www-data /var/www/symfony
-
-# Utilisateur non-root
-USER www-data
-
-# Point d'entrée
-CMD ["php-fpm"]
+ 
+# Add this environment variable before running composer install
+ENV COMPOSER_ALLOW_SUPERUSER=1
+ 
+# Installation des dépendances
+RUN composer install --optimize-autoloader
+ 
+# Configuration des permissions
+RUN chown -R www-data:www-data var
+ 
+# Installation de MySQL
+RUN apk add --no-cache mysql-client \
+    && docker-php-ext-install pdo pdo_mysql
