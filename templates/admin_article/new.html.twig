@@ -6,9 +6,11 @@
     {% block nav %}
         {% include 'admin/_menu.admin.html.twig' %}
         {% endblock %}
-    <h1 class="text-center mt-4 mb-4 text-dark">Création d'un nouvel article</h1>
+    <h1 class="text-center mt-5 mb-4 text-dark">Création d'un nouvel article</h1>
 
     {{ include('admin_article/_form.html.twig') }}
+<div class="text-center mb-3">
+    <a href="{{ path('app_admin_article_index') }}" class="btn btn-outline-primary">Retour vers la liste</a>
+</div>
 
-    <a href="{{ path('app_admin_article_index') }}">back to list</a>
 {% endblock %}

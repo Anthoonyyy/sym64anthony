@@ -1,11 +1,15 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Article{% endblock %}
+{% block title %}{{ title }}{% endblock %}
 
 {% block body %}
-    <h1>Article</h1>
-
-    <table class="table">
+    {% block nav %}
+        {% include 'admin/_menu.admin.html.twig' %}
+        {% endblock %}
+    <div class="border-bottom">
+    <h1 class="text-center text-black mt-5 mb-5">Détails d'un article</h1>
+    </div>
+    <table class="table w-75 mx-auto mt-4">
         <tbody>
             <tr>
                 <th>Id</th>
@@ -42,9 +46,10 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_admin_article_index') }}">back to list</a>
+    <div class="text-center">
+    <a href="{{ path('app_admin_article_index') }}" class="me-4 btn btn-outline-primary">Retour à la liste</a>
 
-    <a href="{{ path('app_admin_article_edit', {'id': article.id}) }}">edit</a>
-
+    <a href="{{ path('app_admin_article_edit', {'id': article.id}) }}" class="btn btn-outline-warning">Modifier</a>
+    </div>
     {{ include('admin_article/_delete_form.html.twig') }}
 {% endblock %}

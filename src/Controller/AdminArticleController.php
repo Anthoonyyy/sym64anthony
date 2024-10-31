@@ -79,6 +79,7 @@ final class AdminArticleController extends AbstractController
         return $this->render('admin_article/edit.html.twig', [
             'article' => $article,
             'form' => $form,
+            'title' => 'Modification article',
         ]);
     }
 
@@ -87,6 +88,7 @@ final class AdminArticleController extends AbstractController
     {
         return $this->render('admin_article/show.html.twig', [
             'article' => $article,
+            'title' => "Détails d'un article",
         ]);
     }
 
