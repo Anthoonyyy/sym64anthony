@@ -45,6 +45,14 @@
                                         <span class="d-inline-block mt-1">By <a href="#">{{ article.user.username }}</a></span>
                                         <span>&nbsp;-&nbsp; {{ article.articleDatePosted|date("F d, Y") }}</span>
                                     </div>
+                                    {% if article.sections is not empty %}
+                                        <div class="post-categories mb-3">
+                                            <span class="me-2">Sections:</span>
+                                            {% for section in article.sections %}
+                                                <span class="badge bg-secondary me-1">{{ section.sectionTitle }}</span>
+                                            {% endfor %}
+                                        </div>
+                                    {% endif %}
 
                                     <p>{{ article.text|slice(0, 100) ~ '...' }}</p>
                                     <p>
